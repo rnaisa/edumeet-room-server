@@ -43,6 +43,10 @@ export interface PeerInfo {
 	raisedHandTimestamp?: number;
 	sessionId: string;
 	recording: boolean;
+	hivePosition?: { // Leave it optional?
+		x: number;
+		y: number;
+	};
 }
 
 export interface PeerContext {
@@ -85,6 +89,8 @@ export class Peer extends EventEmitter {
 	public raisedHandTimestamp?: number;
 	#escapeMeeting = false;
 	public escapeMeetingTimestamp?: number;
+
+	#hivePosition = {x: -1, y: -1};
 
 	public initialConsume = false;
 
@@ -271,6 +277,14 @@ export class Peer extends EventEmitter {
 		this.raisedHandTimestamp = Date.now();
 	}
 
+	public get hivePosition(): {x: number, y: number} {
+		return this.#hivePosition;
+	}
+
+	public set hivePosition(value: {x: number, y: number}) {
+		this.#hivePosition = value;
+	}
+
 	public get escapeMeeting(): boolean {
 		return this.#escapeMeeting;
 	}
@@ -387,6 +401,7 @@ export class Peer extends EventEmitter {
 			raisedHandTimestamp: this.raisedHandTimestamp,
 			sessionId: this.sessionId,
 			recording: this.recording,
+			hivePosition: this.hivePosition,
 		};
 	}
 }

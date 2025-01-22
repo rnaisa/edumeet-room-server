@@ -65,6 +65,21 @@ export const createPeerMiddleware = ({ room }: { room: Room; }): Middleware<Peer
 				break;
 			}
 
+			case 'hivePosition': {
+				const { hivePosition } = message.data;
+
+				peer.hivePosition = hivePosition;
+
+				room.notifyPeers('hivePosition', {
+					peerId: peer.id,
+					hivePosition
+				}, peer);
+
+				context.handled = true;
+
+				break;
+			}
+
 			case 'recording': {
 				const { recording } = message.data;
 
