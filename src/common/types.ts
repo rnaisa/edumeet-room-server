@@ -31,6 +31,12 @@ export interface FileMessage {
 	timestamp: number;
 }
 
+export interface CanvasObject {
+	object: object;
+	objectId: string,
+	status: string;
+}
+
 export interface LobbyPeerInfo {
 	id: string;
 	displayName?: string;
@@ -132,6 +138,8 @@ export type ManagedRoom = {
 	// Features of the room
 	maxActiveVideos: number;
 	locked: boolean;
+	tracker?: string;
+	maxFileSize?: number;
 	breakoutsEnabled: boolean;
 	chatEnabled: boolean;
 	raiseHandEnabled: boolean;
